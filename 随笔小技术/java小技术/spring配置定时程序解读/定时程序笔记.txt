@@ -1,0 +1,5 @@
+1.名称按照一定的规则来定  如TransportTask 不能更改文字
+2.cronExpression 属性设置时间，规则为秒 分 时 * * 每天定时
+3.公司框架必须要设置service索引到action 否则读取不到
+4.分为实体task 代理类servie 和被代理类serviceImpl 
+5.如果不用bean注入 可以在代理类中采用autowired  和被代理类中component 来注入 如果不注入必须使用get set方法

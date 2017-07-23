@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery.js">
+
+</script>
+<script>
+
+//也可以$("#id").prop("checked",true);     attr属性不可以用了
+	function test(){
+		
+		
+		
+		
+		var a =$("#testName").val()
+		for (var i = 0; i < a.length; i++) {
+			if(a[i]!=","){
+				var b =document.getElementById("a"+a[i]);
+				b.checked=true;
+			}
+			
+			
+		}
+		
+	}
+		
+	function test2(){
+		
+		
+		
+		
+		var a =$("#testName").val()
+		for (var i = 0; i < a.length; i++) {
+			if(a[i]!=","){
+				var b =document.getElementById("a"+a[i]);
+				b.checked=false;
+			}
+			
+			
+		}
+		
+	}
+		
+		
+
+</script>
+</head>
+<body>
+	<form action="/h/Servlet2" method="post">
+		<input type="checkbox" name="checkA" id ="a1" value="1">1<br />
+		<input type="checkbox" name="checkA" id ="a2" value="2">2<br />
+		<input type="checkbox" name="checkA" id ="a3" value="3">3<br />
+		<input type="text" value="1,2" id="testName">
+		<input type="button" value="dianji" onclick="test()">
+		<input type="button" value="dianji" onclick="test2()">
+		<button value="login">login</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+SELECT * FROM    表名   where to_char(sysdate,'yyyy')=to_char(字段,'yyyy')   按照年
+SELECT * FROM    表名   where to_char(sysdate,'yyyy-mm')=to_char(字段,'yyyy-mm')  按照月
+SELECT * FROM    表名   where to_char(字段,'iw')=to_char(sysdate,'iw')  按照周
+SELECT * FROM    表名   where 字段 &gt;=add_months(sysdate,-3) AND 字段 &lt; =to_date(#{endDate},'yyyy-mm-dd') 前三个月（暂时的，可以查到去年的）
+SELECT * FROM    表名   where to_char(sysdate,'yyyy-mm-dd')=to_char(字段,'yyyy-mm-dd')  按照天
+SELECT * FROM    表名   where startDate &gt; = to_date(#{startDate},'yyyy-mm-dd') and  endDate &lt; =to_date(#{endDate},'yyyy-mm-dd')  按照规定时间范围索引 gt大于 lt小于
+
+select distinct 列名 from 表名   查询不重复的记录
+select * from 表名 where rownum < number   查询列条数的记录
+
+alter table 表名 add 新列名 varchar(20)                  增加列数据
+alter table 表名 drop column                             删除列
+alter table 表名 rename column 旧列名 to 新列名          修改列名
+alter table 表名 modify 列名 类型                        修改列类型
+
+update 表名 set 列名 =to_date('2016-12-04 01:00:10','yyyy-MM-dd hh:mi:ss')  修改时间

@@ -1,0 +1,35 @@
+private JSONObject getJSONObjectByHttp(JSONObject json,String url,CosUser user){
+		
+		System.out.println("开始http传输："+url);
+		System.out.println("准备json数据："+json.toString());
+		JSONObject resultJsonObject =null;
+		CloseableHttpResponse response = null;
+		URI uri=null;
+		try {
+			CloseableHttpClient httpclient = this.httpClientBuilder.build();
+			uri = new URI(url);
+			HttpPost httpPost = new HttpPost(uri);
+			httpPost.setHeader("Accept","application/json");
+			httpPost.setHeader("Content-Type","application/json");
+			httpPost.addHeader("","");
+			HttpEntity stringEntity = new StringEntity(json.toString());
+			httpPost.setEntity(stringEntity);
+			response = httpclient.execute(httpPost);
+			String string = EntityUtils.toString(response.getEntity());
+			System.out.println("返回json："+string);
+			System.out.println("--------------------------------------------");
+			resultJsonObject = JSONObject.fromObject(string);
+			logger.info("传输成功，返回json数据:{}",string);
+		} catch (URISyntaxException e) {
+			logger.info("uri连接错误:[{}]",url);
+		} catch (UnsupportedEncodingException e) {
+			logger.error("处理json转换时出现异常，异常信息:\n",e);
+		} catch (ClientProtocolException e) {
+			logger.error("返回json时出现异常，异常信息:\n",e);
+		} catch (IOException e) {
+			logger.error("返回json时出现异常，异常信息:\n",e);
+		} 
+		
+		return resultJsonObject;
+		
+	}

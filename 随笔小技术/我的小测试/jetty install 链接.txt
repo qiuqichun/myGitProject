@@ -1,0 +1,1 @@
+http://xzer.github.io/run-jetty-run-updatesite/nightly/

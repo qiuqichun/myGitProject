@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Mybatis-TypeHandlersPackage: cn.boc.sh.sfjh.opt.sms.model.helper
+Mybatis-TypeAliasesPackage: cn.boc.sh.sfjh.opt.sms.model
+

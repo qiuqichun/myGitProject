@@ -1,0 +1,24 @@
+假定主模块依赖jquery、underscore和backbone这三个模块，main.js就可以这样写：
+
+　require(['jquery', 'underscore', 'backbone'], function ($, _, Backbone){
+　　　　// some code here
+　　});
+　　
+define(function (){
+　　　　var add = function (x,y){
+　　　　　　return x+y;
+　　　　};
+　　　　return {
+　　　　　　add: add
+　　　　};
+　　});
+==　
+require(['math'], function (math){
+　　　　alert(math.add(1,1));
+　　});
+==
+require([math], callback);
+
+require()函数加载上面的模块的时候，会先加载math.js文件
+第一个参数[math]，是一个数组，里面的成员就是要加载的模块；第二个参数callback，则是加载成功之后的回调函数。如果将前面的代码改写成AMD形式，就是下面这样
+require()是用来加载模块的

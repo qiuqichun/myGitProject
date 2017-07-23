@@ -1,0 +1,3 @@
+evermds.wechat.appid=wxd235fad77e63d642
+evermds.wechat.appsecret=00284c28fea368ee4274c312dc17bdea
+evermds.wechat.token=44966

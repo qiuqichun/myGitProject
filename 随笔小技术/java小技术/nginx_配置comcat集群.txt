@@ -1,0 +1,61 @@
+1、多个tomcat服务的集群
+
+2、可以是在一台机器上，也可以放在多台机器上
+
+3、集群中的tomcat必须是不同端口号和服务名
+   service，connectior，Engin，必须修改，99999，5个
+   tomcat服务的服务名，必须不一样，1个
+   
+4、每个tomcat服务可以自己单独携带web项目，也可以指向同一个
+
+5、集群（负载均衡）：
+   集群服务器，负载均衡
+   apache服务器，静态的web服务器
+   nginx服务器，静态的web服务器
+   
+   承担负载均衡工作的服务器，反向代理服务器，
+   正向代理指的是服务器代理的是web项目，服务器
+   反向代理指的是服务器代理的是请求，客户端
+   
+6、nginx：启动和停止
+   start nginx
+   nginx -s quit
+   nginx -s reload   在不停止nginx的情况下重启    一般配置路径在user\local\nginx 路径下
+   
+   nginx.conf配置nginx的代理和负载
+   proxy.conf配置http请求的各种参数
+
+7、
+   hots:C:\Windows\System32\drivers\etc
+   
+   配置nginx作为静态服务器的访问根目录,
+   如果用upstream的话,location /
+	location /html {
+		root   html;
+		index  index.html index.htm;
+		proxy_pass http://127.0.0.1;
+		proxy_set_header X-Real-IP $remote_addr;
+		client_max_body_size 100m;
+	}
+
+	配置出错页面：
+	error_page   500 502 503 504  /50x.html;
+	location = /50x.html {
+		root   html;
+	}
+  
+    nginx如果不配置upstream的话，那么默认访问的是自己的location本地项目
+	nginx如果配置upstream的话，它就变成了一个反向代理服务器，负责根据upstream配置进行负载分发
+
+	upstream 127.0.0.1 {
+		server 127.0.0.1:8080 weight=7;
+		server 127.0.0.1:18080 weight=3;
+    }
+	
+8、部署linux的tomcat集群项目，然后用nginx做负载均衡分发
+
+
+
+
+   
+   

@@ -1,0 +1,25 @@
+var sendMessage = function(){
+		 curCount = count;
+		 //设置button效果，开始计时
+	     $(".btn-code").attr("disabled", "true");//虽然无法真的disabled，但样式会变灰
+	     $(".btn-code").text(curCount + "秒后重发");
+	     $(".btn-code").toggleClass("btn-red");
+	     InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+	    
+	     $(".btn-code").attr("disabled", "false");
+	    
+	}
+	//timer处理函数
+	var SetRemainTime = function () {
+		if(curCount>0){
+        	  curCount--;
+          $(".btn-code").text(curCount + "秒后重发");
+		}else{
+			$(".btn-code").text("获取");
+			$(".btn-code").addClass("btn-red");
+			clearInterval(InterValObj);
+			
+		}
+		
+          
+	}

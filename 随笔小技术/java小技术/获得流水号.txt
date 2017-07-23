@@ -1,0 +1,19 @@
+private String getJnlId(){
+		int i=0;//0为初始值 可以直接改成1
+		StringBuffer stringBuffer = new StringBuffer();
+		String dateBuffer = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+		
+		String maxJnl = activityPromotionJNLService.MaxJnl();//数据库拿最大值
+		
+		if(maxJnl!=null){
+			i = Integer.parseInt(maxJnl.substring(18,maxJnl.length()));
+			i++;
+		}
+		String xuliehua=String.format("%08d", i);
+		stringBuffer = stringBuffer.append(dateBuffer).append(xuliehua);
+		return stringBuffer.toString();
+		
+	}
+
+
+数据库：select Max(字段) from 表名

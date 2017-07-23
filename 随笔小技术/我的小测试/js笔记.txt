@@ -1,0 +1,15 @@
+javascript是一种专为与网页交互设计的脚本语言
+由三部分组成：ECMAScript提供核心语言；文档对象模型(DOM)提供访问和操作网页内容的方法和接口；
+浏览器对象模型（BOM）提供与浏览器交互的方法和接口
+
+Aptana Studio 软件编辑js
+
+document.write("hello");写在页面上的
+console.info("hellojs");//控制台调试的
+
+var 局部变量 不加是全局变量 声明方法外面的为全局变量
+数据类型：1.Number(整数,小数,NaN(非数字类型) Infinity 无穷大)
+2.Boolean 3.String （用parseInt来转化）4.Undefined (被声明了 但是没有被赋值的变量)5.Null（空对象引用，也就是赋值为null）
+引用类型：Object对象（比如Date arr数组）
+
+typeof(变量名) 可以查出数据类型

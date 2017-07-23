@@ -1,0 +1,12 @@
+1.安装Setup-Subversion-1.8.9-1.msi  一直next，安装目录自己选
+2.管理员dos命令下 svn --version 显示版本信息说明安装成功
+3.创建svn的版本库 repository
+4.在dos窗口进入版本库路径 输入 svnadmin create +路径  然后会自动生成目录文件
+5.开启服务：1-dos启动：启动服务端程序 svnserve -d -r +版本库目录路径(-d 表示后台执行，-r表示版本库根目录)
+	另建dos窗口 输入netstat -an 本地地址有3690的说明开启成功
+	    2-windows启动：sc create SVNService binpath= "+subversion的bin目录+\+serve.exe --service -r +版本库目录的上一级" start= auto depend= Tcpip
+6.在eclipse中下载插件svn 在prefrences-team中找到svn了就说明安装成功
+7.版本库目录下载svnserve.conf中去掉password-db=passwd前面的#，在passwd目录中去掉users下面的#，或者可以自己添加一行
+格式为帐户名=密码
+8.在eclipse中创建一个项目然后右击选择team-share，创建一个svn区域，后面finish填写自己的帐户名密码，创建链接成功了
+9.

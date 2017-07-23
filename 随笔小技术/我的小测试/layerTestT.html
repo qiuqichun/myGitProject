@@ -1,0 +1,31 @@
+<html>
+	<head>
+		
+		<script src="jquery.js"></script>
+		<script src="qq/layer.js"></script>
+		
+		<script>
+			$(document).ready(function(){
+			$("#myTest").on("click",function(){
+			layer.open({
+  type: 2,
+  title: 'layer mobile页',
+  shadeClose: true,
+  shade: 0.8,
+  area: ['380px', '90%'],
+  content: 'http://layer.layui.com/mobile/' //iframe的url
+}); 
+			
+			});
+			
+			})
+			
+		</script>
+	</head>
+
+
+	<body>
+		<input type="button" value="button" id="myTest" style="margin-top:300px">
+
+	</body>
+</html>

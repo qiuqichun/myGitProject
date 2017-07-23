@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- 任务实体 -->
+	<bean id="myTransportFTPTask" class="cn.boc.sh.campus.myTest.MyTransportTestTask" lazy-init="false" >
+		<property name="myTestService" ref="myTestService"/> 
+	</bean>
+	
+	<!-- 定时传输数据库中活动信息到指定服务器 -->
+	<bean  id="myDataMethod" 
+	class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property  name="targetObject" ref="myTransportFTPTask"/>
+		<!-- targetMethod 配置定时执行的方法名 -->
+		<property name="targetMethod" value="excuteAction"/>
+		<property name="concurrent" value="false"/> <!-- 当前任务没执行完，下一个不会执行的 -->
+	</bean>
+	
+	<!-- 定时传输数据库中活动信息到指定服务器触发器 -->
+	<bean id="myTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="myDataMethod"></property>
+		<property name="cronExpression" value="0 14 11 * * ?"></property>
+	</bean>
+	
+	<!-- 定制任务列表 ,开启任务-->
+	<bean id="myStartQuartz" autowire="no" lazy-init="false"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="myTaskTrigger"/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="myTestServiceImpl" class="cn.boc.sh.campus.myTest.MyTestServiceImpl" lazy-init="false">
+	</bean>
+	<!-- 注入 Bean -->
+	<bean id="myTestService" class="cn.boc.sh.campus.myTest.MyTestService" lazy-init="false">
+		<property name="myTestServiceImpl" ref="myTestServiceImpl"/> 
+	</bean>
+	
+	
+</beans>

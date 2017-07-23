@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<script src="js/jquery.js"></script>
+		<script>
+			function a(){
+				var tr = $("input:checked");
+				alert(tr.val());
+			}
+		</script>
+	</head>
+	
+	<body>
+		<form>
+			<input type="checkbox" value="1"/>
+			<input type="checkbox" value="2"/>
+			<input type="checkbox" value="3"/><br />
+			<input type="button" onclick="a()"/>
+		</form>
+	</body>
+</html>

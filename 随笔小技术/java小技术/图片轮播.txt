@@ -1,0 +1,12 @@
+// Í¼Æ¬ÂÖ²¥
+    $('#banner').bxSlider({
+        adaptiveHeight: true,
+        controls:false,
+        speed: 1000,
+        auto: false,
+        //pause: 500,
+        alignment: 'vertical'
+    });
+
+
+jquery-slider,js°ü

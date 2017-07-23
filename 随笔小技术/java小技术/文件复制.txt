@@ -1,0 +1,14 @@
+byte[] b = new byte[1024];
+		try {File file = new File("C:/Users/qqc/Desktop/haha.txt");
+			FileInputStream fileInputStream = new FileInputStream("C:/Users/qqc/Desktop/cardList.txt");
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		int a;
+		
+		while((a=fileInputStream.read(b))!=-1){
+			fileOutputStream.write(b);
+		}
+		} catch (Exception e) {
+			// TODO 注意！异常输出到日志时，要根据实际情况输出关键的逻辑输入数据
+			// e.printStackTrace();
+			//logger.error("处理xxxx时出现异常，异常信息:\n",e);
+		}

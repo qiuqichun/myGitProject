@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+
+	<constant name="struts.objectFactory" value="spring" />
+	<package name="album" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="err"> err.jsp</result>
+		</global-results>
+
+		<action name="login" class="actions.AlbumAction" method="selectTest">
+			<result name="success">login.jsp</result>
+			
+		</action>
+	</package>
+
+</struts>

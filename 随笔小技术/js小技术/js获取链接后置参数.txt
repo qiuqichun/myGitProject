@@ -1,0 +1,17 @@
+mounted(){
+      //ªÒ»°userToken∫Õuserid
+      var urlParam=window.location.href;
+      console.log(urlParam);
+      var reg=/\?/;
+      urlParam=urlParam.replace(reg,'&')
+      var ret=new Object();
+      if(urlParam){
+        urlParam=urlParam.substr(1).split('&');
+        for(var i=0,len=urlParam.length;i<len;i++){
+          var urlParam2=urlParam[i].split('=');
+          ret[urlParam2[0]]=urlParam2[1]
+        }
+      }
+      var URL=ret;
+      var userTokenIndex=URL.userToken;
+      var useridIndex=URL.userid;

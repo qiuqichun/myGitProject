@@ -1,0 +1,23 @@
+@RequestParam(value="fileseq",required=false) MultipartFile[] fileseq,HttpServletRequest request
+
+
+
+
+
+			String realPath = request.getSession().getServletContext().getRealPath("/upload");
+			
+			
+			for (int i = 0; i < fileseq.length; i++) {
+				long currentTimeMillis = System.currentTimeMillis();
+			String originalFilename = currentTimeMillis+fileseq[i].getOriginalFilename();
+				File myfile = new File(realPath, originalFilename);
+			
+				try {
+					FileUtils.copyInputStreamToFile(fileseq[i].getInputStream(), myfile);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				collegeBaseInfo.setFileSeq(currentTimeMillis);
+			}
+		

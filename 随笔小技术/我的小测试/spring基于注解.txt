@@ -1,0 +1,46 @@
+1运行两个tomcat之后运行nginx 路径文件名要一致
+然后配置nginx.conf配置文件，
+    upstream 127.0.0.1 {
+   	server 127.0.0.1:8080 weight=5;
+ 	server 127.0.0.1:18080 weight=5;
+
+}
+
+location后面/ html表示静态的  去掉html后变成动态的tomcat运行
+
+
+
+web.xml
+配置前置分发器
+
+servlet标签配置springmvc
+dispatcherservlet 引用
+
+增加init-param
+
+
+springmvc不需要写struts配置文件，只需要注解
+但是需要配置spring-servlet.xml
+
+7.6.5配置xsd
+
+	<mvc:annotation-driven></mvc:annotation-driven>//操控mvc注解的，使得注解可以使用
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="*"></context:component-scan>
+
+@Controller 控制注解 放在类前
+@RequestMapping("login") 前台访问后台的注解，放置在action方法前面
+
+
+@Repository
+
+(注意，在springmvc框架中，返回return的文件名 jsp放置在web-inf里面，放在外面失去效果)
+
+把对应的类文件注入
+
+@Resource 或者@Aotowired    两个底层代码差不多 
+@Qualifier("***")         这两个放在对应声明类前面
+
+***这里的东西需要在对应注解注释好
+
+注解能运行是因为用到了反射，所以不宜用多，

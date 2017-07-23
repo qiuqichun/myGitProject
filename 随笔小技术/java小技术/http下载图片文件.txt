@@ -1,0 +1,18 @@
+//调用http
+HttpServletResponse myResponse;
+
+//设置头信息
+OutputStream outputStream = myResponse.getOutputStream();
+myResponse.reset();
+myResponse.setHeader("Content-Disposition", "attachment;filename=test.jpg");
+myResponse.setContentType("text/plain;charset=utf-8");
+
+//设置流 找到流文件（绝对路径）
+InputStream inputStream = new FileInputStream(new File("C:/Users/wjh/Desktop/content2.jpg"));
+
+//传输流文件
+FileCopyUtils.copy(inputStream, outputStream);
+
+//结束
+outputStream.flush();
+outputStream.close();

@@ -1,0 +1,35 @@
+/**
+	 * <p>
+	 * 计算两个时间间隔天数
+	 * </p>
+	 *
+	 * @since 1.0.0
+	 * @param t1
+	 *            (较早日期)
+	 * @param t2
+	 *            (较晚日期)
+	 * @return
+	 */
+	public static long getDayDiff(Date t1, Date t2) {
+
+		Calendar c1 = Calendar.getInstance();
+		c1.setTime(t1);
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(t2);
+
+		c1.set(Calendar.HOUR_OF_DAY, 0);
+		c1.set(Calendar.MINUTE, 0);
+		c1.set(Calendar.SECOND, 0);
+		c1.set(Calendar.MILLISECOND, 0);
+
+		c2.set(Calendar.HOUR_OF_DAY, 0);
+		c2.set(Calendar.MINUTE, 0);
+		c2.set(Calendar.SECOND, 0);
+		c2.set(Calendar.MILLISECOND, 0);
+
+		long duration = c2.getTime().getTime() - c1.getTime().getTime();
+
+		long nDays = (duration + 3600000L) / 86400000L;
+
+		return nDays;
+	}

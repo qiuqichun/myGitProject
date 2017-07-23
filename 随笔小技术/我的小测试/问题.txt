@@ -1,0 +1,28 @@
+modelAttribute 怎么用的
+解：该绑定的命令对象以“user”为名称添加到模型对象中供视图页面展示使用。我们此时可以在视图页面使用
+${user.username}来获取绑定的命令对象的属性
+action中用json来动态传值 怎么弄的
+demo-modules-tuser-entity-clazz 数字怎么产生的
+tuser-mysql-tusermapper.xml selectkey是干嘛的
+`name`为什么要加单引号
+demo-modules-tuser-action  org.esbuilder.user.action  ClazzAction.java 方法是干吗用的
+demo-modules-tuser-action src/main/resources tuser pageData.dataList?size gt 0  freemarker  判断长度值是否大于0  小于用lt来表示  大于等于gte 小于等于 lte
+json中各个值代表什么含义
+js中extend作用1.合并套嵌多个对象
+把参数放到自定义的常量中去 然后怎么通过freemarker传值到json里的
+
+<#assign scores = {"语文":86,"数学":78} + {"数学":87,"Java":93}>
+语文成绩是${scores.语文}
+
+protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+${base}/sample/add.json action中传值是怎么传值的
+
+ModelMap 和ModelAndView
+ 
+extends 
+1.BaseModelAdapter  entity
+2.IMybatisBaseDao  dao
+3.MybatisBaseServiceImpl service imp
+4.IBaseService  service interface
+5.PageQueryModel action中分装好的类
+6.ModelMap

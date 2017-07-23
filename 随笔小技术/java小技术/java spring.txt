@@ -1,0 +1,3 @@
+ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+A bean = ac.getBean(A.class);
+bean.getAtest();

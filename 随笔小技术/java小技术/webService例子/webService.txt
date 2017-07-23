@@ -1,0 +1,44 @@
+schema约束
+webservice是一门跨平台语言，应用在天气，物流查询接口调用上，不同语言之间可以相互调用
+请求行（get.post HTTP 1.1），请求头，请求体
+xml 可拓展标记语言
+wsdl webservice描述语言
+soap 简单对象访问协议 simple object access protocal   http+xml
+SEI webservice endpoint interface       webservice终端接口  服务端用来处理请求的接口 endpoint是jdk的一个类
+CXF celtix+xfire 一个apache的用于开发webservice服务器端和客户端的框架
+endPoint(地址,实现类) 地址目前认为是随便填写的端口号不能和已经发布的相同
+
+借助jdk的工具来开发webservice 
+wsimport  cmd先进入客户端地址 然后wsimport -keep url?wsdl 在该客户端地址产生相应class和java文件（不加-keep只产生class文件） 后面的url也可以使用本地获得wsdl文件的路径
+只要有wsdl文件 就可以直接在客户端通过cmd的程序进行编译出来 
+使用tcpip监听
+run-tcpip monitor中 可以把本地端口号改成需要的端口号 编译的wsdl文件里的路径需要使用本地端口号
+
+借助CXF来开发webservice 
+把cxf的jar包引入就可以运行 不使用jdk了
+<definitions> 定义
+
+<types>  -  <schema>  - <element>
+<message> - <part> - 引用上面的element        消息
+<portType> - <operation> - <input/output> - 引用上面的message       接口类型（端口类型）
+<binding>                                    接口实现类
+<service>                                    提供service实现 服务器端的一个webservice的容器（发布使用）
+
+<operaction> 指定定义实现类的方法名
+<soap:binding style="document"> 绑定的数据是一个document(xml)
+<soap:operation style="document"> 传输的是document(xml)
+<port> 一个节点，处理请求的入口（sei实现）
+
+一个方法实现对应两个message 一个请求，一个响应
+
+cxf 支持map传递的数据  jdk编译的webserice不支持
+一次webservice请求的流程：
+1.客户端向服务器端发送了一个soap消息（http请求+xml片段）
+2.服务器端处理完请求后，向客户端返回一个soap消息
+
+问题：webservie 相当于http+?+?   xml 和schema
+      wsdl是什么？webservice 的定义语言，对应.wsdl文档，一个webservice会对应一个唯一的wsdl文档，定义了客户端服务端发送请求和响应的数据格式和过程
+     如何发布一个webservice：定义sei 定义sei （终端 相当于一个接口 @webservice @webmethod）的实现  发布：endpoint，publish('地址'，实现类对象) 
+     如何请求一个webservice:1 根据wsdl文档生成客户端代码 jdk/cxf  2.根据生成的代码调用webservice
+
+

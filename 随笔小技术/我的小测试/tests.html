@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<script src="js/jquery.js">
+		</script>
+		<script>
+		
+	$(document).ready(function(){
+
+
+		$("div[name='checkB']").hide();
+		$("div[name='checkA']").show();
+
+		$("#testA").click(
+			function(){
+				$("div[name='checkB']").hide();
+				$("div[name='checkA']").show();
+		
+
+			}
+			);
+		$("#testB").click(
+			function(){
+				$("div[name='checkA']").hide();
+				$("div[name='checkB']").show();
+		
+
+		}
+		);
+
+
+
+});	
+	
+			
+		
+		</script>
+
+	</head>
+
+	<body>
+		<input type="radio" class="verifyRequired" name="articleAdd" id="testA"  checked="checked">编辑文字
+		<input type="radio" class="verifyRequired" name="articleAdd" id="testB">输入链接
+		
+		
+		<div name="checkA">我是文字1<input type="text"></div>
+		<div name="checkB">我是文字2<input type="text"></div>
+
+	</body>
+</html>
+						
+						
+							
+
+
+

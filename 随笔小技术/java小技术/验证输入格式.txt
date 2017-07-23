@@ -1,0 +1,12 @@
+public static boolean isMobileNo(String mobileNo) {
+		Pattern p = Pattern
+				.compile("^((13[0-9])|(14[579])|(15[^4,\\D])|(17[^249,\\D])|(18[0-9]))\\d{8}$");
+		Matcher m = p.matcher(mobileNo);
+		return m.matches();
+
+	}// ÷ª˙∫≈
+
+	public static boolean isEmail(String email) {
+
+		return email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+");
+	}//” œ‰

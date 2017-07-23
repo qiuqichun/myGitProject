@@ -1,0 +1,1 @@
+1.隐藏磁盘驱动：输入dos命令gpedit.msc 用户配置-管理模版-windows组件-windows资源管理器-隐藏‘我的电脑’磁盘

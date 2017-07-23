@@ -1,0 +1,395 @@
+
+后台java
+/**
+	 * 充值查询页面
+	 * //1点击立即查询 2查询近三个月 3查询当月 4查询这周
+	 * @return
+	 */
+	@RequestMapping(value = "api/recharge/queryList")
+	public String queryPage(
+			@RequestParam(value="cardNo",required=false) String cardNo,
+			@RequestParam(value="startDate",required=false) String startDate,
+			@RequestParam(value="endDate",required=false) String endDate,
+			@RequestParam(value="checkButton",required=false) String checkButton,
+			@RequestParam(value="from",required=false) String from,
+			@RequestParam(value = "mobileCurrentPage", required = false) String mobileCurrentPage,
+			ModelMap model) {
+		
+		int currentPage=1;//页数
+		if(mobileCurrentPage!=null&&!mobileCurrentPage.isEmpty()){
+			currentPage=Integer.parseInt(mobileCurrentPage);
+		}
+		
+		int averagePage=10;//每页显示10条数据
+		int rowBefore=(currentPage-1)*averagePage+1;//开始条数
+		int rowBehind=currentPage*averagePage;//结束条数
+		model.addAttribute("currentPage", currentPage);
+		
+		int size=0;//初始總記錄數
+		int totolPage=1;//初始總頁數
+		
+		HashMap<String, Object> param = new HashMap<String,Object>();
+		List<Recharge> rechargeList=null;
+		
+		switch (Integer.parseInt(checkButton)) {
+		case 1:
+			param.clear();
+			param.put("userId", user.getUserId());
+			param.put("cardNo", cardNo);
+			param.put("startDate", startDate);
+			param.put("endDate", endDate);
+			param.put("orderBy", "order by desc");
+			size = this.rechargeService.selectPageList(param).size();//总数目
+			totolPage=1;
+			if(size!=0){
+				totolPage=(size%averagePage==0)?size/averagePage:(size/averagePage+1);//总页数
+			}
+			model.addAttribute("totolPage", totolPage);
+			
+			param.put("rowBefore", rowBefore);
+			param.put("rowBehind", rowBehind);
+			
+			rechargeList = this.rechargeService.selectPageList(param);
+			break;
+
+		case 2:
+			param.clear();
+			param.put("userId", user.getUserId());
+			param.put("cardNo", cardNo);
+			param.put("chargeDate", new Date());
+			param.put("endDate",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));//截止时间为今日
+			param.put("orderBy", "order by desc");
+			size = this.rechargeService.selectLongMonthList(param).size();//总数目
+			totolPage=1;
+			if(size!=0){
+				totolPage=(size%averagePage==0)?size/averagePage:(size/averagePage+1);//总页数
+			}
+			model.addAttribute("totolPage", totolPage);
+			
+			param.put("rowBefore", rowBefore);
+			param.put("rowBehind", rowBehind);
+			rechargeList = this.rechargeService.selectLongMonthList(param);
+			break;
+		case 3:
+			param.clear();
+			param.put("userId", user.getUserId());
+			param.put("cardNo", cardNo);
+			param.put("chargeDate", new Date());
+			param.put("orderBy", "order by desc");
+			size = this.rechargeService.selectMonthList(param).size();//总数目
+			totolPage=1;
+			if(size!=0){
+				totolPage=(size%averagePage==0)?size/averagePage:(size/averagePage+1);//总页数
+			}
+			model.addAttribute("totolPage", totolPage);
+			
+			param.put("rowBefore", rowBefore);
+			param.put("rowBehind", rowBehind);
+			rechargeList = this.rechargeService.selectMonthList(param);
+			break;
+		case 4:
+			param.clear();
+			param.put("userId", user.getUserId());
+			param.put("cardNo", cardNo);
+			param.put("chargeDate", new Date());
+			param.put("orderBy", "order by desc");
+			size = this.rechargeService.selectWeekList(param).size();//总数目
+			totolPage=1;
+			if(size!=0){
+				totolPage=(size%averagePage==0)?size/averagePage:(size/averagePage+1);//总页数
+			}
+			model.addAttribute("totolPage", totolPage);
+			
+			param.put("rowBefore", rowBefore);
+			param.put("rowBehind", rowBehind);
+			rechargeList = this.rechargeService.selectWeekList(param);
+			break;
+		default:
+			break;
+		}
+		
+		
+		model.addAttribute("checkButton",checkButton);
+		model.addAttribute("rechargeList",rechargeList);
+		return "campus/recharge/queryList";
+	}
+
+
+
+
+
+
+html页面
+
+<div class="switch-tabs switch-tab3">
+                   
+                    <form action="#">
+                        <div class="pure-g form-item">
+                            <div class="pure-u-1-5">银行卡</div>
+                            <div class="pure-u-4-5">
+                                <label class="item-select">
+                                    <select class="eui-select" name="bankCard" id="bankCard3">
+                                    	<option value="">请选择银行卡号</option>
+                                    </select>
+                                    <span class="icon-select-down"></span>
+                                </label>
+                                <!--  <span class="form-warning error" style="display:none" id="itembankCard3">请至少添加一张银行卡</span>  -->
+                            </div>
+                        </div>
+                        <div class="pure-g form-item">
+                            <div class="pure-u-1-5">查询时间</div>
+                           	<div class="pure-u-4-5">
+                                <label class="item-input input-date" for="startDate">
+                                	<input value="" class="" readonly style="border:none;width:25%;" name="startDate" readonly  id="startDate" type="text" placeholder=" 开始日期">
+                                    <span class="icon-select-down"></span>
+                                </label>
+                                <label class="item-input input-date" for="endDate">
+                                    <input value="" class="" readonly style="border:none;width:25%;" name="endDate" readonly id="endDate"  type="text" placeholder=" 结束日期">
+                                    <span class="icon-select-down"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-btn">
+                            <div class="eui-btn" name="checkRecharge" value="1">立即查询</div>
+                        </div>
+                    </form>
+                    <form class="pure-g" action="#">
+                        <div class="pure-u-1-3">
+                            <div class="form-btn">
+                                <div class="eui-btn btn-grey" name="checkRecharge" value="2">查询近3个月</div>
+                            </div>
+                        </div>
+                        <div class="pure-u-1-3">
+                            <div class="form-btn">
+                                <div class="eui-btn btn-grey" name="checkRecharge" value="3">查询近1个月</div>
+                            </div>
+                        </div>
+                        <div class="pure-u-1-3">
+                            <div class="form-btn">
+                                <div class="eui-btn" name="checkRecharge" value="4">查询近1周</div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="caption-con" style="line-height:35px">
+                        <ul class="display-list" style="text-align:center">
+                            <li class="item-list title">
+                                <ul class="display-item clearfix">
+                                    <li class="item-list" style="width:35%">充值日期</li>
+                                    <li class="item-list">姓名</li>
+                                    <li class="item-list">充值金额</li>
+                                </ul>
+                            </li>
+                            <ul id="selectResultTable">
+                            
+                            </ul>
+                            <input type="hidden" value="1" id="getCurrentPage" >
+				            <input type="hidden" value="1" id="totolPage" >
+				            <input type="hidden" value="1" id="checkButton" >
+				            <span class="pure-u-1-6" style="display:none" ><input type="button" value="首页" name="startPage" style="background-color:#fff;border:none;display:none"></span>
+				            <span class="pure-u-1-6" style="display:none"><input type="button" value="上一页" name="fontPage" style="background-color:#fff;border:none;display:none"></span>
+				            <span class="pure-u-1-6" style="display:none"><input type="button"  value="1/1" id="getTotolPage" style="background-color:#fff;border:none;display:none"></span>
+				            <span class="pure-u-1-6" style="display:none"><input type="button" value="下一页" name="behindPage" style="background-color:#fff;border:none;display:none"></span>
+				            <span class="pure-u-1-6" style="display:none"><input type="button" value="末页" name="endPage" style="background-color:#fff;border:none;display:none"></span> 
+                           
+                        </ul>
+                    </div>
+                </div>
+
+
+
+js脚本
+
+$("input[name='startPage']").on('click',function(){
+			var mobileCurrentPage=Number("1");
+			returnCurrentPage(mobileCurrentPage);//返回首页
+    		
+    	});
+    	
+    	$("input[name='endPage']").on('click',function(){
+    		var totolPage = $("#totolPage").val();
+   			var mobileCurrentPage=Number(totolPage);
+   			returnCurrentPage(mobileCurrentPage);//返回末页
+    	});
+		
+    	$("input[name='behindPage']").on('click',function(){
+    		var currentPage = $("#getCurrentPage").val();
+   			var totolPage = $("#totolPage").val();
+   			var mobileCurrentPage=Number(totolPage);
+   			if(Number(currentPage)<Number(totolPage)){
+   				mobileCurrentPage=Number(currentPage)+Number("1");
+   			}
+    		returnCurrentPage(mobileCurrentPage);//返回下一页
+    	});
+    	
+    	$("input[name='fontPage']").on('click',function(){
+    		var currentPage = $("#getCurrentPage").val();
+   			var mobileCurrentPage=Number("1");
+   			if(currentPage>1){
+   				mobileCurrentPage=Number(currentPage)-Number("1");
+   			}
+   			returnCurrentPage(mobileCurrentPage)//返回上一页
+    	});
+    	
+   		var returnCurrentPage=function(mobileCurrentPage){
+   			var checkButton=$("#checkButton").val();
+    		var cardNo=$("select[name='bankCard'] option:checked").val();
+    		var startDate=$("#startDate").val();
+    		var endDate=$("#endDate").val();
+    		if(cardNo==''||cardNo==undefined){
+        		layer.closeAll();
+    			layer.open({
+    	            content: '对不起，必须添加银行卡号!',
+    	            time:"2",
+    	            style: 'background-color:#16d69d; color:#fff; border:none; font-size:1.6rem;',
+    	            end : function(){
+    	            	
+    	            }
+    	        });
+    			return;
+    		}
+    		if(checkButton=='1'&&startDate==''||startDate==undefined){
+        		layer.closeAll();
+    			layer.open({
+    	            content: '请输入查询开始日期!',
+    	            time:"2",
+    	            style: 'background-color:#16d69d; color:#fff; border:none; font-size:1.6rem;',
+    	            end : function(){
+    	            	
+    	            }
+    	        });
+    			return;
+    		}
+    		
+    		if(checkButton=='1'&&endDate==''||endDate==undefined){
+        		layer.closeAll();
+    			layer.open({
+    	            content: '请输入查询结束日期!',
+    	            time:"2",
+    	            style: 'background-color:#16d69d; color:#fff; border:none; font-size:1.6rem;',
+    	            end : function(){
+    	            	
+    	            }
+    	        });
+    			return;
+    		}
+    		
+    	if(cardNo!=''&&cardNo!=undefined){
+    		$.ajax({
+    			url : "${base}/campus/api/recharge/queryList.json",
+    			type:"POST",
+    			data : {
+    				cardNo : cardNo,
+    				startDate : startDate,
+    				endDate : endDate,
+    				checkButton : checkButton,
+    				mobileCurrentPage:mobileCurrentPage,
+    			},
+    			success : function(data){
+    				if(data && data.success){
+    					 //渲染模板							
+       					var resultTableSource = $("#resultTable-template").html();
+       					var resultTableTemplate = Handlebars.compile(resultTableSource);
+       					$("#selectResultTable").html(resultTableTemplate(data));
+       					$("#getCurrentPage").val(data.currentPage);
+	   					$("#getTotolPage").val(data.currentPage+"/"+data.totolPage);
+	   					$("#totolPage").val(data.totolPage);
+	   					$("#checkButton").val(data.checkButton);
+       					if(data.data){
+       						$("input[name='fontPage']").show();
+       						$("input[name='behindPage']").show();
+       						$("#getTotolPage").show();  
+       						$("input[name='startPage']").show();  
+       						$("input[name='endPage']").show();  
+    	   					$(".pure-u-1-6").show();    	   					
+     					} 
+    				}
+    			} ,
+    			
+    			error : function(){
+	        		layer.closeAll();
+	        		layer.open({
+        	            content: '通讯故障，请稍后再试!',
+        	            style: 'background-color:#16d69d; color:#fff; border:none; font-size:1.6rem;',
+        	            end : function(){
+        	            	
+        	            }
+        	        });
+	        	} 
+    		});
+    		}
+    	};
+   		
+
+mappers
+
+<select id="selectPageList" parameterType="HashMap" resultMap="RechargeResultMap">
+		select * from (SELECT 
+		a.*,rownum rn from (select * FROM campus_recharge
+		<include refid="selectPageListWhere" />
+		) a
+		
+		)
+		where 1=1 
+		<if test="rowBefore != null and rowBefore != '' and rowBehind != null and rowBehind != ''">
+				AND rn between #{rowBefore} and #{rowBehind} 
+		</if>
+	</select>
+	<sql id="selectPageListWhere">
+		<where>
+			1=1
+			<if test="id != null ">
+				AND id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND userId = #{userId}
+			</if>
+			<if test="cardNo != null and cardNo != ''">
+				AND cardNo = #{cardNo}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND mobile = #{mobile}
+			</if>
+			<if test="schoolNo != null and schoolNo != ''">
+				AND schoolNo = #{schoolNo}
+			</if>
+			<if test="eid != null and eid != ''">
+				AND eid = #{eid}
+			</if>
+			<if test="name != null and name != ''">
+				AND name = #{name}
+			</if>
+			<if test="certId != null and certId != ''">
+				AND certId = #{certId}
+			</if>
+			<if test="sex != null and sex != ''">
+				AND sex = #{sex}
+			</if>
+			<if test="idType != null and idType != ''">
+				AND idType = #{idType}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status}
+			</if>
+			<if test="chargeAmount != null and chargeAmount != ''">
+				AND chargeAmount = #{chargeAmount}
+			</if>
+			<if test="chargeDate != null and chargeDate != ''">
+				AND chargeDate = #{chargeDate}
+			</if>
+			<if test="chargeTime != null and chargeTime != ''">
+				AND chargeTime = #{chargeTime}
+			</if>
+			<if test="chargeResult != null and chargeResult != ''">
+				AND chargeResult = #{chargeResult}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND chargeDate &gt; = to_date(#{startDate},'yyyy-mm-dd') 
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND chargeDate &lt; =to_date(#{endDate},'yyyy-mm-dd')
+			</if>
+			<if test="orderBy != null and orderBy != ''">
+				order by chargeDate desc
+			</if>
+		</where>
+	</sql>

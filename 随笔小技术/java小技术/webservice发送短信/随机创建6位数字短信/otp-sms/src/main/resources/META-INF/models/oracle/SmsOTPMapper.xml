@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.boc.sh.sfjh.opt.sms.dao.ISmsOTPDao">
+	
+	<resultMap id="SmsOTPResultMap" type="SmsOTP">
+		<result property="verifySeq" column="verifySeq" javaType="_long"/>
+		<result property="mobileNo" column="mobileNo"/>
+		<result property="code" column="code"/>
+		<result property="codeSeq" column="codeSeq"/>
+		<result property="sendCount" column="sendCount"/>
+		<result property="verifyFailureCount" column="verifyFailureCount"/>
+		<result property="verified" column="verified"/>
+		<result property="verifyDate" column="verifyDate"/>
+	</resultMap>
+<update id="update" parameterType="SmsOTP">
+	<![CDATA[
+		UPDATE core_smsotps
+		   SET 
+			code=#{code,jdbcType=VARCHAR},
+			codeSeq=#{codeSeq,jdbcType=VARCHAR},
+			sendCount=#{sendCount,jdbcType=INTEGER},
+			verifyFailureCount=#{verifyFailureCount,jdbcType=INTEGER},
+			verified=#{verified,jdbcType=VARCHAR},
+			verifyDate=#{verifyDate,jdbcType=TIMESTAMP}
+		 WHERE mobileNo=#{mobileNo,jdbcType=VARCHAR}
+	]]>
+	</update>
+
+	<update id="updateFailureCount" parameterType="SmsOTP">
+	<![CDATA[
+		UPDATE core_smsotps
+		   SET 
+			verifyFailureCount=#{verifyFailureCount,jdbcType=INTEGER},
+		 WHERE mobileNo=#{mobileNo}
+	]]>
+	</update>
+	
+	<delete id="deleteById" parameterType="Long">
+	<![CDATA[
+		DELETE 
+		  FROM core_smsotps
+		 WHERE verifySeq=#{verifySeq}
+	]]>
+	</delete>
+
+  
+	<!--删除基准时间以前的动态密码-->
+	<delete id="deleteExpiredBefore"  parameterType="date">
+	<![CDATA[
+		 delete from core_smsotps where VerifyDate <#{theDate}
+	]]>
+	</delete>
+
+	<select id="selectByMobileNo" resultMap="SmsOTPResultMap"  parameterType="String">
+	<![CDATA[
+		select * from core_smsotps where mobileNo=#{mobileNo}
+	]]>
+	</select>
+	
+	<select id="selectOne" resultMap="SmsOTPResultMap"  parameterType="HashMap">
+	<![CDATA[
+		select * from core_smsotps where mobileNo=#{mobileNo}
+	]]>
+	</select>
+	<insert id="create" parameterType="SmsOTP" >
+	<selectKey resultType="long" order="BEFORE" keyProperty="verifySeq"> 
+			SELECT s_core_smsotps_verifyseq.nextval AS verifySeq FROM dual
+		</selectKey>
+	<![CDATA[
+		INSERT INTO core_smsotps( 
+		            verifySeq,
+					code,
+					codeSeq,
+					sendCount,
+					verifyFailureCount,
+					verified,
+					mobileNo,
+					verifyDate
+			 )VALUES(
+			        #{verifySeq,jdbcType=NUMERIC},
+					#{code,jdbcType=VARCHAR},
+					#{codeSeq,jdbcType=VARCHAR},
+					#{sendCount,jdbcType=INTEGER},
+					#{verifyFailureCount,jdbcType=INTEGER},
+					#{verified,jdbcType=VARCHAR},
+					#{mobileNo,jdbcType=VARCHAR},
+					#{verifyDate,jdbcType=TIMESTAMP}
+			)
+	]]>
+	</insert>
+	<select id="selectListByEntity" resultMap="SmsOTPResultMap" parameterType="SmsOTP">
+	<![CDATA[
+		select * from core_smsotps where verifyFailureCount=6
+	]]>
+	</select>
+	
+</mapper>

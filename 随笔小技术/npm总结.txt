@@ -1,0 +1,14 @@
+下载的node.js内部自带npm
+由于全局下载国外服务器速度慢 所以目前通过淘宝镜像cnpm进行操作
+增加node_global和node_cache 文件夹放cnpm
+设置路径参数：npm config set profix +global的路径；npm config set cache +cache 路径
+联网下载npm?install?-g?cnpm?--registry=https://registry.npm.taobao.org
+配置环境变量到cnpm中
+通过cnpm下载vue cnpm install vue -g   
+下载vue命令提示符 cnpm install vue-cli -g
+
+以上环境配置好了
+下面构建项目：进入项目文件夹 vue init webpack +自定义项目名称
+进入项目
+cnpm install 放入源码包
+cnpm run dev 运行项目

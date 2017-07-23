@@ -1,0 +1,18 @@
+HttpServletResponse myResponse;
+//设置头信息
+OutputStream outputStream = myResponse.getOutputStream();
+myResponse.reset();
+myResponse.setHeader("Content-Disposition", "attachment;filename=beansBalance.txt");
+myResponse.setContentType("text/plain;charset=utf-8");
+StringBuilder sb = new StringBuilder("手机号\t当前可用彩豆汇总数\t彩豆数\t过期日\r\n");
+
+
+//添加内容
+for (int i = 0; i < ; i++) {
+	sb.append(mobile).append("\t").append(usefulBeansBal).append("\t").append(beans).append("\t").append		(deadline).append("\r\n");
+			}
+
+//结束语
+outputStream.write(sb.toString().getBytes());
+		outputStream.flush();
+		outputStream.close();

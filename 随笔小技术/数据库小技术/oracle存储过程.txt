@@ -1,0 +1,30 @@
+<update id="testUpdate" parameterType="Integer">
+			declare 
+		 x number:= #{orderId, jdbcType=NUMERIC};
+		
+		 begin qqcTest(x);
+ 		end;
+</update>
+
+
+
+
+create or replace procedure qqcTest(x in number) is
+
+begin
+  if x>0 then
+   
+    update apm_order set mobile='155ff55442' where order_id='C8446465117';
+    
+    commit;
+  
+   end if;
+end qqcTest;
+
+
+
+
+<-第二种发送方式->
+ <update id="testUpdate" parameterType="HashMap"  statementType="CALLABLE">
+		{call admin.qqcTest(#{orderId,mode=IN,jdbcType=NUMERIC})}
+	</update> 

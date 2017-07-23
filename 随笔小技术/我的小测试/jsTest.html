@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset="UTF-8">
+<title>Insert title here</title>
+
+<script src="js/jquery.js">
+
+</script>
+<script type="text/javascript" charset="utf-8">
+test();
+	function test(){
+	var a=document.getElementsByName("aa")[1];
+	alert(a.value);
+
+}
+
+	function test2(){
+	var r = $("input[name='ddd']").val();
+	alert(r);
+}
+	
+	function test3(){
+	var ee=document.getElementById("sel");
+	var se=ee.options[1].value;
+alert("success");
+	ee.options[1].setAttribute("selected",true);
+	ee.options[2].setAttribute("selected",true);
+	var u = $("select[name='sss']").val();
+	alert(u);
+
+
+}
+	
+</script>
+</head>
+<body>
+	<select id="sel" name="sss" multiple="multiple">
+		<option>11</option>
+		<option>22</option>
+		<option>33</option>
+	
+	</select>
+	<input type="text" value="cc" name="aa" id="bb">
+	<input type="text" value="ccd" name="aa" id="bsb">
+	<input type="text" value="ooo" name="ddd">
+	<input type="text" value="fff" name="fff">
+	<input type="text" value="ggg" name="ggg">
+
+	<input type="button" onclick="test()">
+	<input type="button" onclick="test2()">
+	<input type="button" onclick="test3()">
+</body>
+</html>

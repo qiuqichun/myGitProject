@@ -1,0 +1,6 @@
+SELECT * FROM    表名   where to_char(sysdate,'yyyy')=to_char(字段,'yyyy')   按照年
+SELECT * FROM    表名   where to_char(sysdate,'yyyy-mm')=to_char(字段,'yyyy-mm')  按照月
+SELECT * FROM    表名   where to_char(字段,'iw')=to_char(sysdate,'iw')  按照周
+SELECT * FROM    表名   where 字段 &gt;=add_months(sysdate,-3) AND 字段 &lt; =to_date(#{endDate},'yyyy-mm-dd') 前三个月（暂时的，可以查到去年的）
+SELECT * FROM    表名   where to_char(sysdate,'yyyy-mm-dd')=to_char(字段,'yyyy-mm-dd')  按照天
+SELECT * FROM    表名   where startDate &gt; = to_date(#{startDate},'yyyy-mm-dd') and  endDate &lt; =to_date(#{endDate},'yyyy-mm-dd')  按照规定时间范围索引 gt大于 lt小于

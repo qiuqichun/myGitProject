@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Built-By: wjh
+Build-Jdk: 1.7.0_60
+Specification-Title: sfjh-commons-otp-sms
+Specification-Version: 1.0.0
+Specification-Vendor: Everelegance
+Implementation-Title: sfjh-commons-otp-sms
+Implementation-Version: 1.0.0
+Implementation-Vendor-Id: cn.boc.sh.sfjh
+Implementation-Vendor: Everelegance
+Created-By: Maven Integration for Eclipse
+Mybatis-TypeHandlersPackage: cn.boc.sh.sfjh.opt.sms.model.helper
+Mybatis-TypeAliasesPackage: cn.boc.sh.sfjh.opt.sms.model
+

@@ -1,0 +1,9 @@
+public static void main(String[] args) { 
+ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);  
+		    executor.scheduleAtFixedRate(  
+		            new EchoServer(),  
+		            0,  
+		            2000,  //周期频率为2秒一次
+		            TimeUnit.MILLISECONDS);  
+}
+//目前适用于证券刷新，其他定时使用spring精确时间

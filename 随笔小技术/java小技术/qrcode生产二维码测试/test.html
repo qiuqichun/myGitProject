@@ -1,0 +1,52 @@
+<html>
+<head>
+
+<script src="jquery/2.1.1/jquery-2.1.1.js"></script>
+<script src="qrcode/1.0.0/qrcode.js"></script>
+
+
+<script src="qrcode/1.0.0/jquery.qrcode.js"></script>
+
+
+
+
+<script type="application/javascript">
+function b(){
+location.reload();
+}
+
+function a(){
+	
+	var urlText = $("#test").val();
+	alert(urlText);
+	
+	// 二维码
+	$(".qrcode").qrcode({width: 192,height: 192,text:urlText});	
+	var imgSrc = $(".qrcode canvas")[0].toDataURL("image/png");	
+	$(".code-con").html("<img src=" + imgSrc + " />"
+		+ "<div style='text-align:center;color:#666;font-size:0.9em;'></div>");	
+	
+	
+}
+
+    
+
+</script>
+
+</head>
+
+
+
+
+<body>
+<input type="text" id="test"> 
+<input type="button" value="点击生产二维码" id="test2" onclick="a()" />
+<input type="button" value="重置" id="test3" onclick="b()" />
+<div class="qrcode" style="display:none;"></div>
+<div class="code-con" style="margin-bottom:0px"></div>
+
+
+</body>
+
+
+</html>

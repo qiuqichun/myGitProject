@@ -1,0 +1,66 @@
+public static void main(String[] args) {
+		String year = new SimpleDateFormat("yyyy").format(new Date().getTime());
+		String month = new SimpleDateFormat("MM").format(new Date().getTime());
+		String day = new SimpleDateFormat("YYYY-MM-dd-HH-mm-ss").format(new Date().getTime());
+		int i = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-1;
+		System.out.println(i);
+		System.out.println(year);
+		System.out.println(month);
+		System.out.println(day);
+
+	}
+
+
+
+private String parseDay(int day){
+		String day2="";
+		switch (day) {
+		case 1:
+			day2="日";
+			break;
+		case 2:
+			day2="一";
+			break;
+		case 3:
+			day2="二";
+	break;
+		case 4:
+			day2="三";
+	break;
+		case 5:
+			day2="四";
+	break;
+		case 6:
+			day2="五";
+	break;
+		case 7:
+			day2="六";
+	break;
+
+		default:
+			break;
+		}
+		return day2;
+		
+	}
+	
+	//获得今天周几
+	int i = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-1;
+	
+
+	//按照num调整月 负数为减 正数为加
+	private String getMonth(int num){
+		String lastMonth="";
+		Calendar instance = Calendar.getInstance();
+		instance.add(Calendar.MONTH, num);
+		lastMonth = new SimpleDateFormat("MM").format(instance.getTime().getTime());
+		return lastMonth;
+	}
+	//按照num调整年 负数为减 正数为加
+	private String getYear(int num){
+		String lastYear="";
+		Calendar instance = Calendar.getInstance();
+		instance.add(Calendar.YEAR, num);
+		lastYear= new SimpleDateFormat("yyyy").format(instance.getTime().getTime());
+		return lastYear;
+	}

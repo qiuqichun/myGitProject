@@ -1,0 +1,41 @@
+HSSFWorkbook myWorkBook = new HSSFWorkbook();
+			HSSFSheet mySheet = myWorkBook.createSheet();
+			Row row1;
+			row1=mySheet.createRow(0);
+			row1.createCell(0).setCellValue("记录号");
+			row1.createCell(1).setCellValue("交易号");
+			row1.createCell(2).setCellValue("出账数量");
+			row1.createCell(3).setCellValue("交易日期");
+			
+			for (int i = 1,len=myList.size(); i <=len; i++) {
+				row1=mySheet.createRow(i);
+				row1.createCell(0).setCellValue(myList.get(i-1).getId()+"");
+				row1.createCell(1).setCellValue(myList.get(i-1).getId()+"");
+				row1.createCell(2).setCellValue(myList.get(i-1).getBeans()+"");
+				row1.createCell(3).setCellValue(myList.get(i-1).getTransDate()+"");
+				
+			}
+			FileOutputStream fos=null;
+			long currentTimeMillis = System.currentTimeMillis();
+			
+			File file = new File("C:\\Users\\wjh\\Desktop\\myExportFile");
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			
+			try {
+				fos = new FileOutputStream("C:\\Users\\wjh\\Desktop\\myExportFile\\"+currentTimeMillis+"ExportInfo.xls");
+				myWorkBook.write(fos);
+				fos.close();
+				myWorkBook.close();
+			} catch (FileNotFoundException e) {
+				// TODO 注意！异常输出到日志时，要根据实际情况输出关键的逻辑输入数据
+				// e.printStackTrace();
+				logger.error("处理io时出现异常，异常信息:\n",e);
+			} catch (IOException e) {
+				// TODO 注意！异常输出到日志时，要根据实际情况输出关键的逻辑输入数据
+				// e.printStackTrace();
+				logger.error("处理io时出现异常，异常信息:\n",e);
+			}
+			
+		}
